@@ -9,12 +9,18 @@ namespace IncomeTaxCalculator
     /// </summary>
     class AnnualPayee : Payee
     {
-        /// <summary>
-        /// No calculation if user is on an annual based fixed income
-        /// </summary>
-        public override void CalculateGrossAnnualSalary(decimal income)
+        //Constructor
+        public AnnualPayee(decimal validIncome)
+            : base (validIncome)
         {
-            GrossAnnualSalary = income;
+
+        }
+        /// <summary>
+        /// No calculation made for gross annual salary, if, a user is on an annual based fixed income
+        /// </summary>
+        public override void CalculateGrossAnnualSalary()
+        {
+            //GrossAnnualSalary value stays the same. No further calcualtion.
         }
         public override void CalculateNationalInsuranceDeduction(decimal grossIncome)
         {
@@ -23,6 +29,10 @@ namespace IncomeTaxCalculator
         public override void CalculateTax(decimal grossIncome)
         {
             throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            return "Gross annual income is: £" + this.GrossAnnualSalary;
         }
     }
 }

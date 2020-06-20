@@ -1,4 +1,6 @@
-﻿namespace IncomeTaxCalculator
+﻿using System;
+
+namespace IncomeTaxCalculator
 {
     /// <summary>
     /// Abstract class to be the base class of AnnualPayee, MonthlyPayee, & HourlyPayee classes.
@@ -8,31 +10,37 @@
     /// </summary>
     abstract class Payee
     {
+        //Field
+        private decimal grossAnnualSalary;
         //Properties
         public decimal GrossAnnualSalary
         {
             get
             {
-                return GrossAnnualSalary;
+                return grossAnnualSalary;
             }
             set
             {
-                if (GrossAnnualSalary > 0)
+                if (value > 0)
                 {
-                    GrossAnnualSalary = value;
+                    grossAnnualSalary = value;
                 }
                 else
                 {
-                    GrossAnnualSalary = 0;
+                    grossAnnualSalary = 0;
                 }
             }
         }
         public decimal TotalTaxAndNationalInsuranceAmount { get; set; }
         public decimal NetAnnualSalary { get; set; }
         public decimal NetMonthlySalary { get; set; }
-
+        //Constructor
+        public Payee(decimal validIncome)
+        {
+            this.GrossAnnualSalary = validIncome;
+        }
         //Methods
-        public abstract void CalculateGrossAnnualSalary(decimal income);
+        public abstract void CalculateGrossAnnualSalary();
         public abstract void CalculateTax(decimal grossIncome);
         public abstract void CalculateNationalInsuranceDeduction(decimal grossIncome);
 
