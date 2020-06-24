@@ -31,17 +31,18 @@ namespace IncomeTaxCalculator
                 }
             }
         }
-        public decimal TotalTaxAndNationalInsuranceAmount { get; set; }
+        public decimal TotalTaxAmount { get; set; }
+        public decimal TotalNationalInsuranceAmount { get; set; }
         public decimal NetAnnualSalary { get; set; }
         public decimal NetMonthlySalary { get; set; }
         //Constructor
         public Payee(decimal validIncome)
         {
-            this.GrossAnnualSalary = validIncome;
+            this.GrossAnnualSalary = validIncome; //initialise salary input by user.
         }
         //Methods
         public abstract void CalculateGrossAnnualSalary();
-        public abstract void CalculateTax(decimal grossIncome);
+        public abstract void CalculateTax(Payee payee);
         public abstract void CalculateNationalInsuranceDeduction(decimal grossIncome);
 
         /// <summary>
@@ -50,7 +51,7 @@ namespace IncomeTaxCalculator
         /// <returns></returns>
         public void CalculateNetAnnualSalary()
         {
-            var postTaxAndNIAmount = GrossAnnualSalary - TotalTaxAndNationalInsuranceAmount;
+            var postTaxAndNIAmount = GrossAnnualSalary - TotalTaxAmount /* - TotalNationalInsuranceAmount*/ ;
             NetAnnualSalary = postTaxAndNIAmount;
         }
 

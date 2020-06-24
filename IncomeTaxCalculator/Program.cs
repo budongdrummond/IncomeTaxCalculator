@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Reflection.Metadata;
 
@@ -8,7 +9,7 @@ namespace IncomeTaxCalculator
     {
         static void Main(string[] args)
         {
-            bool keepAskingMainMenu = true;
+            bool keepAskingMainMenu = true; //condition status for Main Menu in Do While loop
             decimal validIncome; //variable to store users input for their income
             var inputIncomeStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands | NumberStyles.Number; //enumeration values that indicates the permitted format
             var inputIncomeCulture = CultureInfo.CreateSpecificCulture("en-GB");
@@ -21,32 +22,31 @@ namespace IncomeTaxCalculator
                     "\nEnter 3 - if you only get paid with hourly rate." +
                     "\nEnter 0 - to Exit programme." +
                     "\n");
-
+                //read input assign to inputMainMenu variable
                 var inputMainMenu = Console.ReadLine();
 
                 switch (inputMainMenu)
                 {
                     case "1":
-                        var validAnnualInput = true;
+                        var validAnnualInput = true; //condition status for annual payee menu in While loop, if false keep asking user
                         while (validAnnualInput)
                         {
                             Console.Clear();
                             Console.Write("\nPlease insert your annual pre-tax income, you may use ',' to seperates thousands >> £");
+
+                            //read input assign to inputIncome variable
                             var inputIncome = Console.ReadLine();
 
+                            /*convert string representation of a number to Decimal equivelant. Using specified Styles and Culture.
+                             * return value in decimal, if successful, if not, return zero. */
                             if (Decimal.TryParse(inputIncome, inputIncomeStyle, inputIncomeCulture, out validIncome))
                             {
                                 //Create instance of AnnualPayee type.
                                 Payee payee = new AnnualPayee(validIncome);
-                                Console.WriteLine("Current object is >> " + payee.GetType() + " << & earning gross salary of £" + payee.GrossAnnualSalary + " annually.");
-                                //Call methos to calculate gross annual income (not really needed).
-                                payee.CalculateGrossAnnualSalary();
-
-                                var t = new TaxCalculator();
-                                Console.WriteLine("------------------------------------");
-                                t.DisplayTaxPercentsMaxThresholdsDetails();
-                                Console.WriteLine("------------------------------------");
-                                t.CalculateTax(payee.GrossAnnualSalary);
+                                payee.CalculateGrossAnnualSalary(); //invoke method. calculate gross annual income (not really needed as annual payee object already have fixed & correct input).
+                                payee.CalculateTax(payee); //invoke method. calculate tax from given annual salary                               
+                                //Console.WriteLine("Current payee object is type of >> " + payee.GetType());
+                                Console.WriteLine(payee.ToString());
                                 validAnnualInput = false;
                             }
                             else
