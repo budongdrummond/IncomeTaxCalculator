@@ -43,7 +43,7 @@ namespace IncomeTaxCalculator
             decimal[] taxMinThresholdRate = { 0.00m, 12501m, 14586m, 25159m, 43431m, 150001m }; //array to hold the min thresholds value for each 6 bands of tax rate.
             decimal[] taxMaxThresholdRate = { 12500m, 14585m, 25158m, 43430m, 150000m, 150000000.0m }; //array to hold the max thresholds value for each 6 bands of tax rate.
             decimal[] taxPercentsRate = { 0.00m, 0.19m, 0.20m, 0.21m, 0.41m, 0.46m }; //array to hold the tax rate value for each 6 bands of tax rate.
-            List<decimal> remainingValueOfSalary = new List<decimal> { payee.GrossAnnualSalary }; //list (with initial of annual salary) withholding remaining salary for each tax bands calculation.
+            List<decimal> remainingValueOfSalary = new List<decimal> { payee.GrossAnnualSalary }; //list (with initial of annual salary) withhold remaining salary for each tax bands calculation.
 
             //iterate through (& calculate tax due) each tax bands and calculate total tax owned at the end. 
             for (int i = 0; i < taxPercentsRate.Length; i++)
@@ -54,25 +54,34 @@ namespace IncomeTaxCalculator
                     Console.WriteLine($"Your income is within '20-'21 personal allowance. 0% tax will be applied");
                     return totalTaxDeduction;
                 }
-                //if users income outwith free personal allowance then calculate tax due & return the total tax deduction.
+                //if users income outwith personal allowance then calculate tax due & return the total tax deduction.
                 else if (payee.GrossAnnualSalary > 12500.00m)
                 {
                     decimal taxDeduction;
-                    
-                    //calculate the current tax bracket from min & max thresholds multiply with current tax bracket rate. result in tax deduction for the current bracket.
-                    taxDeduction = (taxMaxThresholdRate[i] - taxMinThresholdRate[i]) * taxPercentsRate[i];
-                    Console.WriteLine($"Tax deduction for your earning between £{taxMinThresholdRate[i]} - £{taxMaxThresholdRate[i]} is £{taxDeduction}.");
-                    //increment the value of current tax bracket tax deduction to the total tax deduction.
-                    totalTaxDeduction += taxDeduction;
-                    //get remaining value of salary (then add to remaining salary List to have value for next loop) before moving on to the next tax bracket.
-                    remainingValueOfSalary.Add(remainingValueOfSalary[i] - (taxMaxThresholdRate[i] - taxMinThresholdRate[i]));
-
-
-                    /*initialy deduct annual/initial salary by 12500 and use the leftover to calculate the subtraction for the loop which 17500*/
-                    //if (taxMaxThresholdRate[i] <= payee.GrossAnnualSalary)
-                    //{
-
-                    //}
+                    //as long the amount in the remaining salary if higher then the taxable amount in the next tax rate, calculate those taxes
+                    if (remainingValueOfSalary[i] > taxMaxThresholdRate[i] - taxMinThresholdRate[i])
+                    {
+                        //calculate the current tax bracket from min & max thresholds multiply with current tax bracket rate. result in tax deduction for the current bracket.
+                        taxDeduction = (taxMaxThresholdRate[i] - taxMinThresholdRate[i]) * taxPercentsRate[i];
+                        Console.WriteLine($"Tax deduction for your earning between £{taxMinThresholdRate[i]} - £{taxMaxThresholdRate[i]} is £{taxDeduction}.");
+                        //increment the value of current tax bracket tax deduction to the total tax deduction.
+                        totalTaxDeduction += taxDeduction;
+                        //get remaining value of salary (then add to remaining salary List to have value for next loop) before moving on to the next tax bracket.
+                        remainingValueOfSalary.Add(remainingValueOfSalary[i] - (taxMaxThresholdRate[i] - taxMinThresholdRate[i]));
+                    }
+                    //else calculate the remaining salary after deduction with the last tax rate. add result to total tax deduction.
+                    else if (remainingValueOfSalary[i] < taxMaxThresholdRate[i] - taxMinThresholdRate[i])
+                    {
+                        decimal taxOnLastRemainingSalary;
+                        taxOnLastRemainingSalary = remainingValueOfSalary[i] * taxPercentsRate[i];
+                        totalTaxDeduction += taxOnLastRemainingSalary;
+                        Console.WriteLine($"Tax deduction for your last remainder salary of £{remainingValueOfSalary[i]} is £{taxOnLastRemainingSalary}.");
+                        remainingValueOfSalary.Add(0); //last remaining salary should be zero.
+                        if (remainingValueOfSalary[i] == 0)
+                        {
+                            break;
+                        }
+                    }
                 }
             }
             return totalTaxDeduction;
