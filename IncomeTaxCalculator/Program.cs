@@ -47,6 +47,7 @@ namespace IncomeTaxCalculator
                                 payee.CalculateTax(payee); //invoke method. calculate tax from given annual salary                               
                                 //Console.WriteLine("Current payee object is type of >> " + payee.GetType());
                                 payee.CalculateNetAnnualSalary();
+                                payee.CalculateNetMonthlySalary();
                                 Console.WriteLine(payee.ToString());
                                 validAnnualInput = false;
                             }

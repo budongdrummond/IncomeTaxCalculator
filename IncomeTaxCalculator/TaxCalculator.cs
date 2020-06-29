@@ -27,7 +27,7 @@ namespace IncomeTaxCalculator
     {
         public decimal CalculateTax(Payee payee)
         {
-            /*Another way to create calculation of tax using anonymous type - but to be investigated - basically you can use foreach loop to start the calculation method.*/
+            /*Another way to create calculation of tax using anonymous/undefined type - but to be investigated - basically you can use foreach loop to start the calculation method.*/
             
             //var taxBands = new[]
             //{
@@ -51,13 +51,16 @@ namespace IncomeTaxCalculator
                 //if users income within personal allowance then return 0 for the total tax deduction.
                 if (payee.GrossAnnualSalary >= 0 && payee.GrossAnnualSalary <= 12500)
                 {
+                    Console.WriteLine("¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬");
                     Console.WriteLine($"Your income is within '20-'21 personal allowance. 0% tax will be applied");
+                    Console.WriteLine("¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬");
                     return totalTaxDeduction;
                 }
                 //if users income outwith personal allowance then calculate tax due & return the total tax deduction.
                 else if (payee.GrossAnnualSalary > 12500.00m)
                 {
-                    decimal taxDeduction;
+                    decimal taxDeduction = 0.00m;
+
                     //as long the amount in the remaining salary if higher then the taxable amount in the next tax rate, calculate those taxes
                     if (remainingValueOfSalary[i] > taxMaxThresholdRate[i] - taxMinThresholdRate[i])
                     {
@@ -74,6 +77,7 @@ namespace IncomeTaxCalculator
                     {
                         if (remainingValueOfSalary[i] == 0)
                         {
+                            Console.WriteLine("¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬");
                             break;
                         }
                         else
