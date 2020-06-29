@@ -35,7 +35,9 @@ namespace IncomeTaxCalculator
 
         public override string ToString()
         {
-            return "The annual gross salary of £" + this.GrossAnnualSalary + " Total Tax Deduction is £" + TotalTaxAmount;
+            return "The gross annual salary of £" + this.GrossAnnualSalary + "\n" +
+                "Total Tax Deduction is £" + TotalTaxAmount + "\n" +
+                "The net annual salary is £" + NetAnnualSalary;
         }
     }
 }

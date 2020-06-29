@@ -72,14 +72,17 @@ namespace IncomeTaxCalculator
                     //else calculate the remaining salary after deduction with the last tax rate. add result to total tax deduction.
                     else if (remainingValueOfSalary[i] < taxMaxThresholdRate[i] - taxMinThresholdRate[i])
                     {
-                        decimal taxOnLastRemainingSalary;
-                        taxOnLastRemainingSalary = remainingValueOfSalary[i] * taxPercentsRate[i];
-                        totalTaxDeduction += taxOnLastRemainingSalary;
-                        Console.WriteLine($"Tax deduction for your last remainder salary of £{remainingValueOfSalary[i]} is £{taxOnLastRemainingSalary}.");
-                        remainingValueOfSalary.Add(0); //last remaining salary should be zero.
                         if (remainingValueOfSalary[i] == 0)
                         {
                             break;
+                        }
+                        else
+                        {
+                            decimal taxOnLastRemainingSalary;
+                            taxOnLastRemainingSalary = remainingValueOfSalary[i] * taxPercentsRate[i];
+                            totalTaxDeduction += taxOnLastRemainingSalary;
+                            Console.WriteLine($"Tax deduction for your last remainder salary of £{remainingValueOfSalary[i]} is £{taxOnLastRemainingSalary}.");
+                            remainingValueOfSalary.Add(0); //last remaining salary should be zero.
                         }
                     }
                 }
