@@ -10,7 +10,7 @@ namespace IncomeTaxCalculator
         static void Main(string[] args)
         {
             bool keepAskingMainMenu = true; //condition status for Main Menu in Do While loop
-            decimal validIncome; //variable to store users input for their income
+            //decimal validIncome; //variable to store users input for their income
             var inputIncomeStyle = NumberStyles.AllowDecimalPoint | NumberStyles.AllowThousands | NumberStyles.Number; //enumeration values that indicates the permitted format
             var inputIncomeCulture = CultureInfo.CreateSpecificCulture("en-GB");
 
@@ -39,7 +39,7 @@ namespace IncomeTaxCalculator
 
                             /*convert string representation of a number to Decimal equivelant. Using specified Styles and Culture.
                              * return value in decimal, if successful, if not, return zero. */
-                            if (Decimal.TryParse(inputIncome, inputIncomeStyle, inputIncomeCulture, out validIncome))
+                            if (Decimal.TryParse(inputIncome, inputIncomeStyle, inputIncomeCulture, out decimal validIncome))
                             {
                                 //Create instance of AnnualPayee type.
                                 Payee payee = new AnnualPayee(validIncome);

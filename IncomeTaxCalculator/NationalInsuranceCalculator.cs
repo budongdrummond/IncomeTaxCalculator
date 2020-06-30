@@ -4,7 +4,7 @@ namespace IncomeTaxCalculator
 {
     /// <summary>
     /// in this class we are going to calculate the national insurance contribution from the groos annual salary.
-    /// in order to start we would ideally need to know the exact or estimated gross annual salary first in order to calculate NI contribution.
+    /// to start with, we would ideally need to know the exact or estimated gross annual salary first in order to calculate NI contribution.
     /// it simply uses NI contribution bracket to calculate how much your gross annual income would be taken off. This brackets/rates are represented using array in the fields.
     /// calculation can be made similar to the one seen in Tax Calculator class.
     /// </summary>
@@ -15,13 +15,13 @@ namespace IncomeTaxCalculator
         private readonly decimal niUpperPrimaryWeeklyThreshold = 962.00m;
 
         //Properties
-        public decimal TotalNIAnnualContribution { get; private set; }
+        public decimal TotalNIAnnualContribution { get; protected set; }
 
         /* need to calculate the weekly income (annual gross / 52).
          * using that figure to logically place the person category of NI contribution rate.
          * take annual gross minus the first-free £183 to move on to calculate the next NI contribution rate which is 12%, and so on...*/
 
-        //Method to calculate NI contribution.
+        //Method to calculate NI contribution with object of Type Payee passed-in.
         public void CalculateNIContribution(Payee payee)
         {
             var grossAnnualIncome = payee.GrossAnnualSalary;

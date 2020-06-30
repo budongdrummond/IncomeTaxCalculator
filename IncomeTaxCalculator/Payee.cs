@@ -17,7 +17,7 @@ namespace IncomeTaxCalculator
         {
             get
             {
-                return grossAnnualSalary;
+                return Math.Round(grossAnnualSalary, 2); //rounding the result into 2 decimal places.
             }
             set
             {
@@ -52,7 +52,7 @@ namespace IncomeTaxCalculator
         public void CalculateNetAnnualSalary()
         {
             var postTaxAndNIAmount = GrossAnnualSalary - TotalTaxAmount - TotalNationalInsuranceAmount;
-            NetAnnualSalary = postTaxAndNIAmount;
+            NetAnnualSalary = Math.Round(postTaxAndNIAmount, 2); //rounding the result into 2 decimal places.
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace IncomeTaxCalculator
         public void CalculateNetMonthlySalary()
         {
             var monthlyNetPay = NetAnnualSalary / 12;
-            NetMonthlySalary = monthlyNetPay;
+            NetMonthlySalary = Math.Round(monthlyNetPay, 2); //rounding the result into 2 decimal places.
         }
     }
 }
