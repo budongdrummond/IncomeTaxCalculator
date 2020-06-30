@@ -19,7 +19,7 @@ namespace IncomeTaxCalculator
 
         public override void CalculateGrossAnnualSalary()
         {
-            //No further calculation for annualPayee object as annual salary is already known.
+            //no further calculation for annualPayee object as annual salary is already known.
         }
 
         public override void CalculateTax(Payee payee)
@@ -28,16 +28,19 @@ namespace IncomeTaxCalculator
             TotalTaxAmount = taxCalculator.CalculateTax(payee); //invoke calculate tax method within the taxCalculator class. assign returned value into Inherited TotalTaxAmount property.
         }
 
-        public override void CalculateNationalInsuranceDeduction(decimal grossIncome)
+        public override void CalculateNationalInsuranceDeduction(Payee payee)
         {
-            throw new NotImplementedException();
+            var niCalculator = new NationalInsuranceCalculator();
+            niCalculator.CalculateNIContribution(payee); //invoke the CalculateNIContribution method.
+            TotalNationalInsuranceAmount = niCalculator.TotalNIAnnualContribution;
         }
 
         public override string ToString()
         {
             return "¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬" + "\n" +
                 "The gross annual salary of £" + this.GrossAnnualSalary.ToString("#.##") + "\n" + //format decimal variable to 2 decimal places when converted into string.
-                "Total Tax Deduction is £" + TotalTaxAmount.ToString("#.##") + "\n" +
+                "Total Tax Deduction is £" + TotalTaxAmount + "\n" +
+                "Total National Insurance Deduction is £" + TotalNationalInsuranceAmount + "\n"+
                 "The net annual salary is £" + NetAnnualSalary.ToString("#.##") + "\n" +
                 "The net monthly salary is £" + NetMonthlySalary.ToString("#.##") + "\n" +
                 "¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬¬";

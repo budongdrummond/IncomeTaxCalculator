@@ -10,11 +10,11 @@ namespace IncomeTaxCalculator
     /// payee of type Payee has properties called GrossAnnualSalary. once we have this properties we can calculate how much
     /// tax we have to pay before we can get a net annual salary.
     /// 
-    /// For e.g.,. using 30,000 annual income. Loop to calculate each related element [i] in the declared arrays. 
-    /// Get how much tax deducted for each tax bands (BUT, for after each tax bands 
+    /// for e.g.,. using 30,000 annual income. Loop to calculate each related element [i] in the declared arrays. 
+    /// get how much tax deducted for each tax bands (BUT, for after each tax bands \n
     /// you will need to subtract your leftover salary by the value of max and min thresholds of each relevant tax rates) & total it up.
     /// 
-    /// 1. On 0% rate, with personal allowance amount of £12,500.
+    /// 1. on 0% rate, with personal allowance amount of £12,500.
     /// -- calculate how much we get taxed in the next tax band we have to deduct 17,500 from taxable amount for the next tax band
     /// 2. on 19% rate, with the taxable amount of £2,084. Deduct 17,500 from taxable amount for the next tax band
     /// 3. on 20% rate, with the taxable amount of £10,573. Deduct 15,416 from taxable amount for the next tax band, if applicable.
@@ -27,7 +27,7 @@ namespace IncomeTaxCalculator
     {
         public decimal CalculateTax(Payee payee)
         {
-            /*Another way to create calculation of tax using anonymous/undefined type - but to be investigated - basically you can use foreach loop to start the calculation method.*/
+            /*another way to create calculation of tax using anonymous/undefined type - but to be investigated - basically you can use foreach loop to start the calculation method.*/
             
             //var taxBands = new[]
             //{
@@ -59,7 +59,7 @@ namespace IncomeTaxCalculator
                 //if users income outwith personal allowance then calculate tax due & return the total tax deduction.
                 else if (payee.GrossAnnualSalary > 12500.00m)
                 {
-                    decimal taxDeduction = 0.00m;
+                    decimal taxDeduction;
 
                     //as long the amount in the remaining salary if higher then the taxable amount in the next tax rate, calculate those taxes
                     if (remainingValueOfSalary[i] > taxMaxThresholdRate[i] - taxMinThresholdRate[i])

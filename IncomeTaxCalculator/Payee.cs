@@ -43,7 +43,7 @@ namespace IncomeTaxCalculator
         //Methods
         public abstract void CalculateGrossAnnualSalary();
         public abstract void CalculateTax(Payee payee);
-        public abstract void CalculateNationalInsuranceDeduction(decimal grossIncome);
+        public abstract void CalculateNationalInsuranceDeduction(Payee payee);
 
         /// <summary>
         /// Deduct taxable amount from gross annual income to get the net annual income.
@@ -51,7 +51,7 @@ namespace IncomeTaxCalculator
         /// <returns></returns>
         public void CalculateNetAnnualSalary()
         {
-            var postTaxAndNIAmount = GrossAnnualSalary - TotalTaxAmount /* - TotalNationalInsuranceAmount*/ ;
+            var postTaxAndNIAmount = GrossAnnualSalary - TotalTaxAmount - TotalNationalInsuranceAmount;
             NetAnnualSalary = postTaxAndNIAmount;
         }
 

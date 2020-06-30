@@ -43,8 +43,10 @@ namespace IncomeTaxCalculator
                             {
                                 //Create instance of AnnualPayee type.
                                 Payee payee = new AnnualPayee(validIncome);
-                                payee.CalculateGrossAnnualSalary(); //invoke method. calculate gross annual income (not really needed as annual payee object already have fixed & correct input).
-                                payee.CalculateTax(payee); //invoke method. calculate tax from given annual salary                               
+                                payee.CalculateGrossAnnualSalary(); //invoke method. calculate gross annual income (not really needed as annual payee object already initilised from constructor).
+                                payee.CalculateTax(payee); //invoke method. calculate tax from given annual salary.
+                                payee.CalculateNationalInsuranceDeduction(payee); //invoke method. calculate NI from given annual salary.
+
                                 //Console.WriteLine("Current payee object is type of >> " + payee.GetType());
                                 payee.CalculateNetAnnualSalary();
                                 payee.CalculateNetMonthlySalary();
