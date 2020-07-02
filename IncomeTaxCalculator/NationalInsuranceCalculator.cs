@@ -32,6 +32,7 @@ namespace IncomeTaxCalculator
             if (grossWeeklyIncome < niLowerPrimaryWeeklyThreshold)
             {
                 TotalNIAnnualContribution = 0.00m;
+                System.Console.WriteLine("***** There is no contribution to be paid with your current earning *****");
             }
             else if (grossWeeklyIncome >= niLowerPrimaryWeeklyThreshold && grossWeeklyIncome <= niUpperPrimaryWeeklyThreshold)
             {
