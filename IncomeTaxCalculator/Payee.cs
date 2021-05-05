@@ -35,11 +35,18 @@ namespace IncomeTaxCalculator
         public decimal TotalNationalInsuranceAmount { get; set; }
         public decimal NetAnnualSalary { get; set; }
         public decimal NetMonthlySalary { get; set; }
+        public int HoursWorked { get; set; }
+
         //Constructor
         public Payee(decimal validIncome)
         {
             this.GrossAnnualSalary = validIncome; //initialise salary input by user.
         }
+        public Payee(int hoursWorked)
+        {
+            this.HoursWorked = hoursWorked;
+        }
+
         //Methods
         public abstract void CalculateGrossAnnualSalary();
         public abstract void CalculateTax(Payee payee);
